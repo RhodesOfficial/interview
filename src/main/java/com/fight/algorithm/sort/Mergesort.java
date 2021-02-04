@@ -10,17 +10,24 @@ import java.util.Random;
  */
 public class Mergesort {
 
+    /**
+     * 辅助数组
+     */
+    private static int[] aux;
+
     public static void main(String[] args) {
         int[] arr = new int[100];
         for (int i = 0; i < 100; i++) {
             arr[i] = new Random().nextInt(100);
         }
+        aux = new int[100];
         sort(arr, 0, arr.length - 1);
+        sort(arr);
         System.out.println(Arrays.toString(arr));
     }
 
     /**
-     * 归并算法
+     * 归并排序(自底向上)
      *
      * @param arr
      * @param lo
@@ -30,10 +37,26 @@ public class Mergesort {
         if (hi <= lo) {
             return;
         }
+        // 分为a[lo...mid]和a[mid+1...hi]
         int mid = lo + (hi - lo) / 2;
         sort(arr, lo, mid);
         sort(arr, mid + 1, hi);
         merge(arr, lo, mid, hi);
+    }
+
+    /**
+     * 归并排序(自顶向下)
+     *
+     * @param arr
+     */
+    private static void sort(int[] arr) {
+        // sz:子数组大小
+        for (int sz = 1; sz < arr.length; sz *= 2) {
+            // lo:子数组索引
+            for (int lo = 0; lo < arr.length - sz; lo += (sz * 2)) {
+                merge(arr, lo, lo + sz - 1, Math.min(lo + (sz * 2) - 1, arr.length - 1));
+            }
+        }
     }
 
     /**
@@ -47,8 +70,6 @@ public class Mergesort {
     private static void merge(int[] arr, int lo, int mid, int hi) {
         // 左指针与右指针
         int i = lo, j = mid + 1;
-        // 辅助数组
-        int[] aux = new int[arr.length];
 
         // 将a[lo...hi]复制到aux[lo...hi]
         for (int k = lo; k <= hi; k++) {
