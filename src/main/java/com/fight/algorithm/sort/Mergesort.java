@@ -1,7 +1,8 @@
 package com.fight.algorithm.sort;
 
 import java.util.Arrays;
-import java.util.Random;
+
+import static com.fight.algorithm.common.CommonUtils.generateArr;
 
 /**
  * @Author Calpis
@@ -16,10 +17,7 @@ public class Mergesort {
     private static int[] aux;
 
     public static void main(String[] args) {
-        int[] arr = new int[100];
-        for (int i = 0; i < 100; i++) {
-            arr[i] = new Random().nextInt(100);
-        }
+        int[] arr = generateArr();
         aux = new int[100];
         sort(arr, 0, arr.length - 1);
         sort(arr);

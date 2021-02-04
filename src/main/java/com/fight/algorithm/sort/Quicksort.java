@@ -1,7 +1,9 @@
 package com.fight.algorithm.sort;
 
 import java.util.Arrays;
-import java.util.Random;
+
+import static com.fight.algorithm.common.CommonUtils.generateArr;
+import static com.fight.algorithm.common.CommonUtils.swap;
 
 /**
  * @Author Calpis
@@ -11,10 +13,7 @@ import java.util.Random;
 public class Quicksort {
 
     public static void main(String[] args) {
-        int[] arr = new int[100];
-        for (int i = 0; i < 100; i++) {
-            arr[i] = new Random().nextInt(100);
-        }
+        int[] arr = generateArr();
         sort(arr, 0, arr.length - 1);
         System.out.println(Arrays.toString(arr));
     }
@@ -50,21 +49,6 @@ public class Quicksort {
         }
         swap(a, lo, j); // 将v=a[j]放入正确的位置
         return j; // a[lo...i-1] <= a[i] <= a[i+1...hi] 完成
-    }
-
-    /**
-     * 交换a[i]与a[j]
-     *
-     * @param a
-     * @param i
-     * @param j
-     */
-    private static void swap(int[] a, int i, int j) {
-        if (a[i] != a[j]) {
-            a[i] = a[i] ^ a[j];
-            a[j] = a[i] ^ a[j];
-            a[i] = a[i] ^ a[j];
-        }
     }
 
 }
